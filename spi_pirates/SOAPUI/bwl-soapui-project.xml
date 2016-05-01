@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="5294ddff-9920-44a0-ab63-681fd6058289" activeEnvironment="Default" name="bwl" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2cdfb9f8-71bf-4a59-ac44-9b64b5415577" wsaVersion="NONE" name="scoreSOAP11Binding" type="wsdl" bindingName="{t-systems.sk/rmc/ds}scoreSOAP11Binding" soapVersion="1_1" anonymous="optional" definition="file:/home/adam/Downloads/bwl_1.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/adam/Downloads/bwl_1.wsdl"><con:part><con:url>file:/home/adam/Downloads/bwl_1.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="t-systems.sk/rmc/ds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://ws.wso2.org/dataservice" xmlns:ns0="t-systems.sk/rmc/ds" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="t-systems.sk/rmc/ds">
+      <xs:element name="getBwl">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" nillable="true" type="xs:string"/>
+            <xs:element name="type" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bwlResult" type="ns0:bwlResult"/>
+      <xs:complexType name="bwlResult">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="score" type="ns0:score"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="score">
+        <xs:sequence>
+          <xs:element name="isInBwl" nillable="false" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getBwlRequest">
+    <wsdl:part element="ns0:getBwl" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBwlResponse">
+    <wsdl:part element="ns0:bwlResult" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="scorePortType">
+    <wsdl:operation name="getBwl">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:getBwlRequest" wsaw:Action="urn:getBwl"/>
+      <wsdl:output message="ns0:getBwlResponse" wsaw:Action="urn:getBwlResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="scoreSOAP11Binding" type="ns0:scorePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getBwl">
+      <soap:operation soapAction="urn:getBwl" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="score">
+    <wsdl:port binding="ns0:scoreSOAP11Binding" name="BWLendpoint">
+      <soap:address location="http://172.27.0.22:8040/services/bwl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://172.27.0.22:8040/services/bwl</con:endpoint></con:endpoints><con:operation id="f72b2876-f17b-4249-b128-7e19671849a0" isOneWay="false" action="urn:getBwl" name="getBwl" bindingOperationName="getBwl" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4a2fdb0f-9223-48cd-b95b-2f84c755e2f2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:getBwl>
+         <ds:id>customer_A</ds:id>
+         <ds:type>customer</ds:type>
+      </ds:getBwl>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2c4218d6-de46-40b2-a908-652f0a991d87" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://172.27.0.22:8040/services/bwl</con:endpoint><con:request/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/><con:wsrmConfig version="1.2"/></con:call><con:call id="9c4fa494-807a-48c8-81a3-784b2849c854" name="Request 3"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://172.27.0.22:8040/services/bwl</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/></con:call></con:operation></con:interface><con:mockService id="b7057e8b-e70a-4c95-a4e7-a4e411699152" port="8088" path="/" host="adam-Lenovo-Z580" name="MockService 1" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="getBwl" id="b5ee2cb1-4b6c-45f8-b3eb-ac62270b4557" interface="scoreSOAP11Binding" operation="getBwl"><con:settings/><con:defaultResponse>Response 2</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="Response 1" id="2b09079a-db58-4816-9c36-a08ebb1614c4" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:bwlResult>
+         <!--Zero or more repetitions:-->
+         <ds:score>
+            <ds:isInBwl>false</ds:isInBwl>
+         </ds:score>
+      </ds:bwlResult>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/></con:response><con:response name="Response 2" id="bfb32d55-6538-4af2-8967-c7f782e498cb" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:bwlResult>
+         <!--Zero or more repetitions:-->
+         <ds:score>
+            <ds:isInBwl>false</ds:isInBwl>
+         </ds:score>
+      </ds:bwlResult>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/></con:response><con:response name="Response 3" id="1c2546b4-e399-4bf5-bbe5-e2de72fb5e4b" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:bwlResult>
+         <!--Zero or more repetitions:-->
+         <ds:score>
+            <ds:isInBwl>true</ds:isInBwl>
+         </ds:score>
+      </ds:bwlResult>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getBwl"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>bwl1</con:name><con:query>declare namespace ds = 't-systems.sk/rmc/ds';
+//ds:id</con:query><con:match>customer_A</con:match><con:response>Response 1</con:response></con:query><con:query><con:name>bwl2</con:name><con:query>declare namespace ds = 't-systems.sk/rmc/ds';
+//ds:id</con:query><con:match>customer_B</con:match><con:response>Response 3</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

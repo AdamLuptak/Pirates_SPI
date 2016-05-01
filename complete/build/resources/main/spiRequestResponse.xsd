@@ -1,0 +1,50 @@
+<xs:schema elementFormDefault="qualified" targetNamespace="http://spring.io/guides/gs-producing-web-service" xmlns:tns="http://spring.io/guides/gs-producing-web-service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="functionType">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="name" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="functionRef" type="xs:string"/>
+      <xs:element name="parameters" type="tns:parametersType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parametersType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="parameter" type="tns:parameterType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parameterType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attribute name="name" type="xs:string"/>
+  <xs:element name="getSpiRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="function" type="tns:functionType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="resultType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="resultValue" type="tns:resultValueType"/>
+    </xs:sequence>
+    <xs:attribute ref="tns:functionRef" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="resultValueType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attribute name="functionRef" type="xs:string"/>
+  <xs:element name="getSpiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="result" type="tns:resultType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="1835dced-b4e4-4dae-9ea1-813d2c66e7c7" activeEnvironment="Default" name="score_1" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="9acda06d-bea1-4297-9093-45c1aa44db14" wsaVersion="NONE" name="scoreSOAP11Binding" type="wsdl" bindingName="{t-systems.sk/rmc/ds}scoreSOAP11Binding" soapVersion="1_1" anonymous="optional" definition="file:/home/adam/Downloads/score_1.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/adam/Downloads/score_1.wsdl"><con:part><con:url>file:/home/adam/Downloads/score_1.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="t-systems.sk/rmc/ds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://ws.wso2.org/dataservice" xmlns:ns0="t-systems.sk/rmc/ds" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="t-systems.sk/rmc/ds">
+      <xs:element name="getScore">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" nillable="true" type="xs:string"/>
+            <xs:element name="type" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="scoreCollection" type="ns0:scoreCollection"/>
+      <xs:complexType name="scoreCollection">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="score" type="ns0:score"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="score">
+        <xs:sequence>
+          <xs:element name="id" nillable="true" type="xs:string"/>
+          <xs:element name="type" nillable="true" type="xs:string"/>
+          <xs:element name="score" nillable="true" type="xs:string"/>
+          <xs:element name="value" nillable="true" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+      <xs:element name="DataServiceFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="current_params" type="xs:string"/>
+            <xs:element name="current_request_name" type="xs:string"/>
+            <xs:element name="nested_exception" type="xs:string"/>
+            <xs:element name="source_data_service">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="location" type="xs:string"/>
+                  <xs:element name="default_namespace" type="xs:string"/>
+                  <xs:element name="description" type="xs:string"/>
+                  <xs:element name="data_service_name" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ds_code" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="REQUEST_STATUS" type="xs:string"/>
+      <xs:element name="DATA_SERVICE_RESPONSE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="DataServiceFault">
+    <wsdl:part element="ns1:DataServiceFault" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getScoreRequest">
+    <wsdl:part element="ns0:getScore" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getScoreResponse">
+    <wsdl:part element="ns0:scoreCollection" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="scorePortType">
+    <wsdl:operation name="getScore">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:getScoreRequest" wsaw:Action="urn:getScore"/>
+      <wsdl:output message="ns0:getScoreResponse" wsaw:Action="urn:getScoreResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getScoreDataServiceFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="scoreSOAP11Binding" type="ns0:scorePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getScore">
+      <soap:operation soapAction="urn:getScore" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault name="DataServiceFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="score">
+    <wsdl:port binding="ns0:scoreSOAP11Binding" name="ScoreEndpoint">
+      <soap:address location="http://172.27.0.22:8040/services/score"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://172.27.0.22:8040/services/score</con:endpoint></con:endpoints><con:operation id="b549eb72-a720-4f99-9320-a50d5dec279c" isOneWay="false" action="urn:getScore" name="getScore" bindingOperationName="getScore" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="57b1d1fe-5ba2-4728-83e2-960135d64c95" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8089/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:getScore>
+         <ds:id>customer_B</ds:id>
+         <ds:type>customer</ds:type>
+      </ds:getScore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getScore"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="98a289eb-cc0a-4426-8c45-71d567d956eb" port="8089" path="/" host="adam-Lenovo-Z580" name="MockService 1" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="getScore" id="ceba547b-ded6-4795-a38a-50914eb64f82" interface="scoreSOAP11Binding" operation="getScore"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="Response 1" id="3e49fb58-9956-4aaa-b860-74ee8bbdc05f" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:scoreCollection>
+         <!--Zero or more repetitions:-->
+         <ds:score>
+            <ds:id>customer_A</ds:id>
+            <ds:type>customer</ds:type>
+            <ds:score>A</ds:score>
+            <ds:value>0.1</ds:value>
+         </ds:score>
+      </ds:scoreCollection>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getScore"/></con:response><con:response name="Response 2" id="6f74956c-721d-4442-bcc3-e62c670b83ad" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="t-systems.sk/rmc/ds">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ds:scoreCollection>
+         <!--Zero or more repetitions:-->
+         <ds:score>
+            <ds:id>customer_B</ds:id>
+            <ds:type>customer</ds:type>
+            <ds:score>C</ds:score>
+            <ds:value>0.5</ds:value>
+         </ds:score>
+      </ds:scoreCollection>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getScore"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>score1</con:name><con:query>declare namespace ds = 't-systems.sk/rmc/ds';
+//ds:id</con:query><con:match>customer_A</con:match><con:response>Response 1</con:response></con:query><con:query><con:name>score2</con:name><con:query>declare namespace ds = 't-systems.sk/rmc/ds';
+//ds:id</con:query><con:match>customer_B</con:match><con:response>Response 2</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

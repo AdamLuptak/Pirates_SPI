@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="t-systems.sk/rmc/ds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://ws.wso2.org/dataservice" xmlns:ns0="t-systems.sk/rmc/ds" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="t-systems.sk/rmc/ds">
+      <xs:element name="getScore">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" nillable="true" type="xs:string"/>
+            <xs:element name="type" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="scoreCollection" type="ns0:scoreCollection"/>
+      <xs:complexType name="scoreCollection">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="score" type="ns0:score"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="score">
+        <xs:sequence>
+          <xs:element name="id" nillable="true" type="xs:string"/>
+          <xs:element name="type" nillable="true" type="xs:string"/>
+          <xs:element name="score" nillable="true" type="xs:string"/>
+          <xs:element name="value" nillable="true" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+      <xs:element name="DataServiceFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="current_params" type="xs:string"/>
+            <xs:element name="current_request_name" type="xs:string"/>
+            <xs:element name="nested_exception" type="xs:string"/>
+            <xs:element name="source_data_service">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="location" type="xs:string"/>
+                  <xs:element name="default_namespace" type="xs:string"/>
+                  <xs:element name="description" type="xs:string"/>
+                  <xs:element name="data_service_name" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ds_code" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="REQUEST_STATUS" type="xs:string"/>
+      <xs:element name="DATA_SERVICE_RESPONSE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="DataServiceFault">
+    <wsdl:part element="ns1:DataServiceFault" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getScoreRequest">
+    <wsdl:part element="ns0:getScore" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getScoreResponse">
+    <wsdl:part element="ns0:scoreCollection" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="scorePortType">
+    <wsdl:operation name="getScore">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:getScoreRequest" wsaw:Action="urn:getScore"/>
+      <wsdl:output message="ns0:getScoreResponse" wsaw:Action="urn:getScoreResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getScoreDataServiceFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="scoreSOAP11Binding" type="ns0:scorePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getScore">
+      <soap:operation soapAction="urn:getScore" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault name="DataServiceFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="score">
+    <wsdl:port binding="ns0:scoreSOAP11Binding" name="ScoreEndpoint">
+      <soap:address location="http://172.27.0.22:8040/services/score"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

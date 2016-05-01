@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="t-systems.sk/rmc/ds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://ws.wso2.org/dataservice" xmlns:ns0="t-systems.sk/rmc/ds" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="t-systems.sk/rmc/ds">
+      <xs:element name="getBwl">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" nillable="true" type="xs:string"/>
+            <xs:element name="type" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bwlResult" type="ns0:bwlResult"/>
+      <xs:complexType name="bwlResult">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="score" type="ns0:score"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="score">
+        <xs:sequence>
+          <xs:element name="isInBwl" nillable="false" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getBwlRequest">
+    <wsdl:part element="ns0:getBwl" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBwlResponse">
+    <wsdl:part element="ns0:bwlResult" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="scorePortType">
+    <wsdl:operation name="getBwl">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:getBwlRequest" wsaw:Action="urn:getBwl"/>
+      <wsdl:output message="ns0:getBwlResponse" wsaw:Action="urn:getBwlResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="scoreSOAP11Binding" type="ns0:scorePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getBwl">
+      <soap:operation soapAction="urn:getBwl" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="score">
+    <wsdl:port binding="ns0:scoreSOAP11Binding" name="BWLendpoint">
+      <soap:address location="http://172.27.0.22:8040/services/bwl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

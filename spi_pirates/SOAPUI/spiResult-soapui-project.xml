@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0a105c19-b3b3-4cf9-959f-468d5dff8718" activeEnvironment="Default" name="spiResult" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="ae49d39f-c06f-4c34-8629-d65010b8a943" wsaVersion="NONE" name="SpiPortSoap11" type="wsdl" bindingName="{http://spring.io/guides/gs-producing-web-service}SpiPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8090/ws/spiResult.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8090/ws/spiResult.wsdl"><con:part><con:url>http://localhost:8090/ws/spiResult.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://spring.io/guides/gs-producing-web-service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://spring.io/guides/gs-producing-web-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://spring.io/guides/gs-producing-web-service">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://spring.io/guides/gs-producing-web-service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="functionType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="name" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="functionRef" type="xs:string"/>
+          <xs:element name="parameters" type="tns:parametersType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="parametersType">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="parameter" type="tns:parameterType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="parameterType">
+        <xs:simpleContent>
+          <xs:extension base="xs:string">
+            <xs:attribute name="name" type="xs:string"/>
+          </xs:extension>
+        </xs:simpleContent>
+      </xs:complexType>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:element name="getSpiRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="function" type="tns:functionType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="resultType">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="resultValue" type="tns:resultValueType"/>
+        </xs:sequence>
+        <xs:attribute ref="tns:functionRef" use="required"/>
+      </xs:complexType>
+      <xs:complexType name="resultValueType">
+        <xs:simpleContent>
+          <xs:extension base="xs:string">
+            <xs:attribute name="name" type="xs:string"/>
+          </xs:extension>
+        </xs:simpleContent>
+      </xs:complexType>
+      <xs:attribute name="functionRef" type="xs:string"/>
+      <xs:element name="getSpiResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="result" type="tns:resultType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getSpiRequest">
+    <wsdl:part element="tns:getSpiRequest" name="getSpiRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSpiResponse">
+    <wsdl:part element="tns:getSpiResponse" name="getSpiResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SpiPort">
+    <wsdl:operation name="getSpi">
+      <wsdl:input message="tns:getSpiRequest" name="getSpiRequest"></wsdl:input>
+      <wsdl:output message="tns:getSpiResponse" name="getSpiResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SpiPortSoap11" type="tns:SpiPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getSpi">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getSpiRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSpiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SpiPortService">
+    <wsdl:port binding="tns:SpiPortSoap11" name="SpiPortSoap11">
+      <soap:address location="http://localhost:8090/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8090/ws</con:endpoint></con:endpoints><con:operation id="b4ea9503-aac7-4c85-9e31-47c788ec253d" isOneWay="false" action="" name="getSpi" bindingOperationName="getSpi" type="Request-Response" outputName="getSpiResponse" inputName="getSpiRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1ea8b2a9-102a-4e7f-9195-2166d8af09d0" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gs:getSpiRequest>
+         <!--1 or more repetitions:-->
+         <gs:function>
+            <!--Optional:-->
+            <gs:name>bwl</gs:name>
+            <!--Optional:-->
+            <gs:functionRef>bwl_1</gs:functionRef>
+            <gs:parameters>
+               <!--1 or more repetitions:-->
+               <gs:parameter name="id">customer_A</gs:parameter>
+               <gs:parameter name="type">customer</gs:parameter>
+            </gs:parameters>
+         </gs:function>
+          <gs:function>
+            <!--Optional:-->
+            <gs:name>score</gs:name>
+            <!--Optional:-->
+            <gs:functionRef>score_1</gs:functionRef>
+            <gs:parameters>
+               <!--1 or more repetitions:-->
+               <gs:parameter name="id">customer_A</gs:parameter>
+               <gs:parameter name="type">customer</gs:parameter>
+            </gs:parameters>
+         </gs:function>
+           <gs:function>
+            <!--Optional:-->
+            <gs:name>bwl</gs:name>
+            <!--Optional:-->
+            <gs:functionRef>bwl_2</gs:functionRef>
+            <gs:parameters>
+               <!--1 or more repetitions:-->
+               <gs:parameter name="id">customer_B</gs:parameter>
+               <gs:parameter name="type">customer</gs:parameter>
+            </gs:parameters>
+         </gs:function>
+         
+      </gs:getSpiRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://spring.io/guides/gs-producing-web-service/SpiPort/getSpiRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
