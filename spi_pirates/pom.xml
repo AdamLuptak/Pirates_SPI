@@ -85,6 +85,25 @@
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>
+            <!-- tag::wsdl[] -->
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.12.3</version>
+
+                <configuration>
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <!--<generatePackage>bwl.wsdl</generatePackage>-->
+                    <generatePackage>score.wsdl</generatePackage>
+                    <schemas>
+                        <schema>
+                            <!--<url>http://localHost:8088/?wsdl</url>-->
+                            <url>http://localHost:8089/?wsdl</url>
+                        </schema>
+                    </schemas>
+                </configuration>
+            </plugin>
+
 		</plugins>
 	</build>
 	
